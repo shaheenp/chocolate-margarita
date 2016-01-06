@@ -1,0 +1,30 @@
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+div#container {
+    display: block;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+div#main {
+    height: 75%;
+    width: 75%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
