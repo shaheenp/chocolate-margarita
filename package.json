@@ -1,7 +1,6 @@
 {
   "name": "chocolate-margarita",
   "description": "website that displays two random words together",
-  "main": "lib",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ."
