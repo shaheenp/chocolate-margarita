@@ -12,10 +12,9 @@ body {
     -webkit-overflow-scrolling: touch;
     font-family: 'Open Sans', Sans-Serif;
     font-size: 20px;
-    color: #222222;
 }
 
-div#container {
+#container {
     display: block;
     height: 100%;
     width: 100%;
@@ -24,10 +23,14 @@ div#container {
     justify-content: center;
 }
 
-div#main {
+#main {
     height: 75%;
     width: 75%;
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+#main > span:not(:first-child) {
+    padding-left: 8px;
 }
