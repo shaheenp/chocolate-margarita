@@ -3,7 +3,6 @@
 const Path = require('path');
 const Hapi = require('hapi');
 const Boom = require('boom');
-const model = require('./lib/model');
 
 const server = new Hapi.Server({
     connections: {
@@ -33,41 +32,7 @@ server.register([require('vision'), require('inert')], error => {
         path: 'templates'
     });
 
-    server.route([
-        {
-            method: 'GET',
-            path: '/',
-            handler: (request, reply) => {
-
-                model.getRandomWord('noun').then(wordOneJSON => {
-
-                    let words = wordOneJSON.word;
-
-                    return model.getRandomWord('noun').then(wordTwoJSON => {
-
-                        words += ' ' + wordTwoJSON.word;
-
-                        reply.view('index', {words});
-
-                    });
-
-                }).catch(error => {
-                    reply(Boom.badImplementation(error.message));
-                });
-
-            }
-        },
-        {
-            method: '*',
-            path: '/public/{path*}',
-            handler: {
-                directory: {
-                    path: '.',
-                    redirectToSlash: true
-                }
-            }
-        }
-    ]);
+    server.route(require('./lib/routes'));
 
     server.start(error => {
 
