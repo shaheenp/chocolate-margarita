@@ -15,7 +15,7 @@ const server = new Hapi.Server({
 });
 
 server.connection({
-    port: 8000
+    port: 4000
 });
 
 server.register([require('vision'), require('inert')], error => {
