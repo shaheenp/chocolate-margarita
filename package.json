@@ -1,24 +1,26 @@
 {
   "name": "chocolate-margarita",
   "description": "website that displays two random words together",
+  "version": "2.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "forever start -a .",
     "stop": "forever stop ."
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=12.1.0"
   },
   "os": [
     "darwin",
     "linux"
   ],
   "dependencies": {
-    "boom": "^3.1.1",
-    "ejs": "^2.3.4",
-    "forever": "^0.15.1",
-    "hapi": "^12.0.0",
-    "inert": "^3.2.0",
-    "vision": "^4.0.1"
-  }
+    "@hapi/boom": "7.4.2",
+    "ejs": "2.6.1",
+    "forever": "1.0.0",
+    "@hapi/hapi": "18.3.1",
+    "@hapi/inert": "5.2.0",
+    "@hapi/vision": "5.5.2"
+  },
+  "main": "index.js"
 }

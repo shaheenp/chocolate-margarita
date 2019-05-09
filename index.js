@@ -1,28 +1,22 @@
 'use strict';
 
 const Path = require('path');
-const Hapi = require('hapi');
-const Boom = require('boom');
+const Hapi = require('@hapi/hapi');
+const Boom = require('@hapi/boom');
 
 const server = new Hapi.Server({
-    connections: {
-        routes: {
-            files: {
-                relativeTo: Path.join(__dirname, 'public')
-            }
+    port: 4000,
+    routes: {
+        files: {
+            relativeTo: Path.join(__dirname, 'public')
         }
     }
 });
 
-server.connection({
-    port: 4000
-});
+async function startServer () {
+    await server.register([require('@hapi/vision'), require('@hapi/inert')]);
 
-server.register([require('vision'), require('inert')], error => {
-
-    if (error) {
-        throw error;
-    }
+    server.route(require('./lib/routes'));
 
     server.views({
         engines: {
@@ -32,16 +26,21 @@ server.register([require('vision'), require('inert')], error => {
         path: 'templates'
     });
 
-    server.route(require('./lib/routes'));
+    server.ext('onPreResponse', (request, h) => {
+        const {response} = request;
 
-    server.start(error => {
-
-        if (error) {
-            throw error;
+        if (!response.isBoom) {
+            return h.continue;
         }
 
-        console.log(`server listening at ${server.info.uri}`);
-
+        return h.view('error', {
+            message: response.output.payload.error
+        }).code(response.output.statusCode);
     });
 
-});
+    await server.start();
+
+    console.log(`server listening at ${server.info.uri}`);
+}
+
+startServer();
